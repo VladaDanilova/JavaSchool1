@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Queue;
 
 public class PyramidBuilder {
-
     /**
      * Builds a pyramid with sorted values (with minumum value at the top line and maximum at the bottom,
      * from left to right). All vacant positions in the array are zeros.

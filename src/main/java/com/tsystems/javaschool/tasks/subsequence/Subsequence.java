@@ -14,7 +14,6 @@ public class Subsequence {
      * @param y second sequence
      * @return <code>true</code> if possible, otherwise <code>false</code>
      */
-
     public boolean find(List x, List y) {
         //проверим, не null ли у нас списки
         if (x == null || y == null)

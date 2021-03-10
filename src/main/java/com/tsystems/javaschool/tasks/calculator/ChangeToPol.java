@@ -11,7 +11,6 @@ public class ChangeToPol {
     private String input;
     private String output = "";
     private Stack <Character> stack;
-
     //конструктор
     public ChangeToPol(String inp)
     {

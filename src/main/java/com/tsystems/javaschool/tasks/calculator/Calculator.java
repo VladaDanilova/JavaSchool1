@@ -20,7 +20,6 @@ public class Calculator {
 
     Stack<Double> stack = new Stack<>();
     String changed;
-
     public String evaluate(String statement) {
         // если выражение null, то и считать нечего
         if (statement == null)
