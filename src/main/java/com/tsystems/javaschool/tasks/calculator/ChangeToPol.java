@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * @author vladadanilova
  * класс нужен для того, чтобы преобразовать строку в польскую нотацию
- * например: (8+2*5)/(1+3*2-4) -> 825*+132*+4-/
+ * например: 2+3 ->  2 3 +
  */
 public class ChangeToPol {
     private String input;
@@ -34,7 +34,7 @@ public class ChangeToPol {
                     pre2 = 1;
                 else
                     pre2 = 2; //приоритет 2
-                if (pre2 < pre1) {              // сравниванием новый и старый по приоритету
+                if (pre2 < pre1) {    // сравниванием новый и старый по приоритету
                     stack.push(operF);
                     break;
                 }
@@ -94,7 +94,7 @@ public class ChangeToPol {
             }
             else {
                 output += ' ';
-                output += ch2; // output it
+                output += ch2;
             }
         }
         return 1;

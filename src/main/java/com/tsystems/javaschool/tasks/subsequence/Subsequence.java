@@ -16,19 +16,21 @@ public class Subsequence {
      */
 
     public boolean find(List x, List y) {
-
-            if (x == null || y == null)
-                throw new IllegalArgumentException();
-
-        if (x.size() > y.size()) //если Х длиннее, то уже сразу не подходит
-        {
+        //проверим, не null ли у нас списки
+        if (x == null || y == null)
+            throw new IllegalArgumentException();
+        // если Х у нас пустая последовательность, то при любом Y будет true
+        // так как если все вычеркнуть из Y, то тоже получится пустая последовательность
+        if(x.isEmpty())
+            return true;
+        //если Х длиннее, то не подходит
+        if (x.size() > y.size())
             return false;
-        }
 
         int lenX = x.size();
         int lenY = y.size();
         int i = 0, j = 0;
-
+        // проверяем, можно ли получить Х из Y
         while (i < lenX && j < lenY)
         {
             while ((j < lenY) && (x.get(i) != y.get(j)))

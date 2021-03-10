@@ -21,70 +21,65 @@ public class Calculator {
     Stack<Double> stack = new Stack<>();
     String changed;
 
-    public Calculator() {
-        stack = new Stack<>();
-        changed = "";
-    }
-
-
     public String evaluate(String statement) {
-        // преобразовать строку в польскую нотацию
+        // если выражение null, то и считать нечего
         if (statement == null)
             return null;
+        // преобразовать строку в польскую нотацию
         ChangeToPol change = new ChangeToPol(statement);
         changed = change.doChange();
-        double val;
-        double tmpResult = 0;
-        double num1, num2;
-        //equation is incorrect
+        double tmpRes = 0; //промежуточный результат
+        String[] tmp = changed.split(" ");
+        double num, num1, num2;
+        //проверка на пустое выражение
         if (changed.isEmpty())
             return null;
-
-        String[] tmp = changed.split(" ");
-
+        //работаем с преобразованным выражением, каждая отдельная часть которого хранится в tmp
         for (int j = 0; j < tmp.length; j++) {
+            //проверка на пустое выражение
             if (tmp[j].isEmpty())
                 return null;
-            // if it is not an operator
+            // проверка оператор ли
             if (!tmp[j].equals("+") && !tmp[j].equals("-") &&
                     !tmp[j].equals("*") && !tmp[j].equals("/")) {
                 try {
-                    val = Double.valueOf(tmp[j]);
+                    num = Double.valueOf(tmp[j]);
                 } catch (NumberFormatException ex) {
-                    //if its not a digit return null
+                    //если не оператор и не число - что-то не так в выражении, null
                     return null;
                 }
-                stack.push(val);
+                stack.push(num);
             } else {
-                //if its an operator - make calculation
+                //если оператор, то вычисляем
+                // берем числа из стека
                 num2 = Double.valueOf(stack.pop());
                 num1 = Double.valueOf(stack.pop());
                 if (tmp[j].equals("+")) {
-                    tmpResult = num1 + num2;
+                    tmpRes = num1 + num2;
                 }
                 if (tmp[j].equals("-")) {
-                    tmpResult = num1 - num2;
+                    tmpRes = num1 - num2;
                 }
                 if (tmp[j].equals("*")) {
-                    tmpResult = num1 * num2;
+                    tmpRes = num1 * num2;
                 }
                 if (tmp[j].equals("/")) {
-                    //divide by zero is forbidden
+                    //не делим на ноль!!!
                     if (num2 == 0)
                         return null;
-                    tmpResult = num1 / num2;
+                    tmpRes = num1 / num2;
                 }
-                stack.push(tmpResult);
+                //сохраняем промежуточный результат в начало стека
+                stack.push(tmpRes);
             }
         }
-        //making right output
+        //причесываем результат
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.getDefault());
         otherSymbols.setDecimalSeparator('.');
         String pattern = "#.####";
         DecimalFormat df = new DecimalFormat(pattern, otherSymbols);
         df.setRoundingMode(RoundingMode.CEILING);
         String res = "";
-
         res = df.format(stack.pop());
         return res;
 
